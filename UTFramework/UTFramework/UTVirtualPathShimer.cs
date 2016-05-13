@@ -6,11 +6,22 @@ using System.Threading.Tasks;
 
 namespace MD.API.MVCUTFramework
 {
-    internal class UTVirtualPathShimer : UTShimer
+    internal class UTVirtualPathShimer : IUTShimer
     {
-        protected override Action GetShimer()
+        public string Name
         {
-           return () => System.Web.Fakes.ShimVirtualPathUtility.ToAbsoluteString = null;
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public Action Shim
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

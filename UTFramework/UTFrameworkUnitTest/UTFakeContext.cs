@@ -5,11 +5,16 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MD.API.MVCFramework
+namespace MD.API.MVCUTFramework
 {
     public class UTFakeContext : IUTFakeContext
     {
         public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void FakeContext()
         {
             throw new NotImplementedException();
         }

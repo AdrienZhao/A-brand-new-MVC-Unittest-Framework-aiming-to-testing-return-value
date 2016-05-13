@@ -54,6 +54,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UTFakeContext.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UTFramework\UTFramework.csproj">
+      <Project>{D9117FD4-BAF3-49D5-BD11-3E83F3D49C5D}</Project>
+      <Name>UTFramework</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

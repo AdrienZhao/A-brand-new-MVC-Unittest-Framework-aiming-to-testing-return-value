@@ -15,5 +15,7 @@ namespace MD.API.MVCUTFramework
         void Initialize();
 
         IUTFakeContext FakeContext { get; }
+
+        IHttpFakeRequest Request { get; }
     }
 }
