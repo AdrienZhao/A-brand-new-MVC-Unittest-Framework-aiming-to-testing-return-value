@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Fakes;
 
 namespace MD.API.MVCUTFramework
 {
-    internal class UTVirtualPathShimer : IUTShimer
+    internal class UTHttpFakeRequest : IHttpFakeRequest
     {
-        public string Name
+        
+
+        public string this[string key]
         {
             get
             {
                 throw new NotImplementedException();
             }
-        }
 
-        public Action Shim
-        {
-            get
+            set
             {
                 throw new NotImplementedException();
             }

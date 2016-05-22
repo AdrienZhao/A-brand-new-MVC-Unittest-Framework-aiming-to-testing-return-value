@@ -14,7 +14,7 @@ namespace MD.API.MVCUTFramework
             throw new NotImplementedException();
         }
 
-        public void FakeContext()
+        public void Fake()
         {
             throw new NotImplementedException();
         }

@@ -10,13 +10,18 @@ namespace MD.API.MVCUTFramework
 {
     public class UTFakeContext : IUTFakeContext
     {
-        private IDisposable shimContext { get; set; }
-        public string ConfigName { get; set; }
+        private ShimerEngine engine;
 
-        public UTFakeContext(string configName, IEnumerable<Action> fake)
+        public UTFakeContext(string configName)
         {
             this.ConfigName = configName;
+            shimContext = ShimsContext.Create();
+            engine = new ShimerEngine(this.ConfigName);
+            engine.Initialize();
         }
+
+        private IDisposable shimContext { get; set; }
+        public string ConfigName { get; set; }
 
         public void Dispose()
         {
@@ -26,12 +31,9 @@ namespace MD.API.MVCUTFramework
             }
         }
 
-        public void FakeContext()
+        public void Fake(Action action)
         {
-            shimContext = ShimsContext.Create();
-            ShimerEngine engine = new ShimerEngine();
-            engine.Initialize();
-            engine.Shim(ConfigName);
+            
         }
     }
 }

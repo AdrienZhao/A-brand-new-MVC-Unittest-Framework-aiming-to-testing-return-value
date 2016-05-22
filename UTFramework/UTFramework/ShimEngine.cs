@@ -11,17 +11,9 @@ namespace MD.API.MVCUTFramework
         private IDictionary<Type, string> ShimersTypesNames { get; set; }
         private IShimerConfiguration ShimerConfiguration { get; set; }
 
-        public ShimerEngine()
+        public ShimerEngine(string configName)
         {
-            Init();
-        }
-
-        public void Initialize()
-        {
-            //TODO: Make assembly configurable.
-            var shimers = ScanAssembly<IUTShimer>(typeof(ShimerEngine).Assembly);
-            InitShimerCollection(shimers);
-            ShimerConfiguration.Initialize();
+            Initialize(configName);
         }
 
         public IUTShimer this[string name]
@@ -48,7 +40,16 @@ namespace MD.API.MVCUTFramework
             }
         }
 
-        public void Shim(string configName)
+        public void Initialize(string configName)
+        {
+            //TODO: Make assembly configurable.
+            var shimers = ScanAssembly<IUTShimer>(typeof(ShimerEngine).Assembly);
+            InitShimerCollection(shimers);
+            ShimerConfiguration.Initialize();
+            InitShimers(configName);
+        }
+
+        private void InitShimers(string configName)
         {
             var config = ShimerConfiguration[configName];
             if (config != null & config.shimers != null & config.shimers.Count() > 0)

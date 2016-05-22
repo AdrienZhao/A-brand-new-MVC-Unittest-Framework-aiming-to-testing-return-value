@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace MD.API.MVCUTFramework
 {
-    /// <summary>
-    /// 用于Shim或者Stub数据的上下文
-    /// </summary>
-    public interface IUTFakeContext : IDisposable
+    class Test
     {
-        void Fake(Action action);
     }
 }
