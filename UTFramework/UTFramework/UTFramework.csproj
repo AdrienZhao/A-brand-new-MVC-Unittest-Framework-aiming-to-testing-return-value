@@ -69,6 +69,7 @@
     <Compile Include="Contract\Context\IUTContext.cs" />
     <Compile Include="Contract\Context\IUTFakeContext.cs" />
     <Compile Include="Contract\Context\IUTHttpContext.cs" />
+    <Compile Include="UTEntityVerifier.cs" />
     <Compile Include="UTFakeContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Contract\IUTShimer.cs" />

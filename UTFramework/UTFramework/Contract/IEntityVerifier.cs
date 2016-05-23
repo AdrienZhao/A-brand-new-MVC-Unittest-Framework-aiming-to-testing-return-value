@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MD.API.MVCUTFramework.Contract
+namespace MD.API.MVCUTFramework
 {
-    public  IEntityVerifier
+    public interface IEntityVerifier
     {
+        void Verify(object target, params Type[] typesToVerify);
     }
 }

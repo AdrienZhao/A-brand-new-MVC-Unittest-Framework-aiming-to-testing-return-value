@@ -19,6 +19,11 @@ namespace MD.API.MVCUTFramework
             throw new NotImplementedException();
         }
 
+        public void Fake(Action action)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Initialize(string testingMethodName)
         {
             throw new NotImplementedException();
