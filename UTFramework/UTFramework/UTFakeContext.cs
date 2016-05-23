@@ -15,9 +15,8 @@ namespace MD.API.MVCUTFramework
         public UTFakeContext(string configName)
         {
             this.ConfigName = configName;
-            shimContext = ShimsContext.Create();
-            engine = new ShimerEngine(this.ConfigName);
-            engine.Initialize();
+            engine = new ShimerEngine();
+            engine.Initialize(configName);
         }
 
         private IDisposable shimContext { get; set; }
@@ -29,11 +28,15 @@ namespace MD.API.MVCUTFramework
             {
                 shimContext.Dispose();
             }
+            if (engine != null)
+            {
+                engine.Dispose();
+            }
         }
 
-        public void Fake(Action action)
+        public void Initialize()
         {
-            
+            shimContext = ShimsContext.Create();
         }
     }
 }

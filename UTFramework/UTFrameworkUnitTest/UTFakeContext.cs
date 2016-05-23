@@ -24,6 +24,11 @@ namespace MD.API.MVCUTFramework
             throw new NotImplementedException();
         }
 
+        public void Initialize()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Initialize(string testingMethodName)
         {
             throw new NotImplementedException();

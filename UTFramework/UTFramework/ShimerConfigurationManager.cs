@@ -33,8 +33,8 @@ namespace MD.API.MVCUTFramework
         public void Initialize()
         {
             var configFileLocation = ConfigurationManager.AppSettings[configName];
-            var path = FileUtility.GetPathFromTypeLocation(configFileLocation, typeof(ShimerConfigurationManager));
-            Init(path);
+            //var path = FileUtility.GetPathFromTypeLocation(configFileLocation, typeof(ShimerConfigurationManager));
+            Init(configFileLocation);
         }
 
         private void Init(string path)

@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using Microsoft.QualityTools.Testing.Fakes;
 
 namespace MD.API.MVCUTFramework
 {
-    internal class ShimerEngine : IShimerProvider
+    internal class ShimerEngine : IShimerProvider, IDisposable
     {
         private IDictionary<string, IUTShimer> ShimersWithNames { get; set; }
         private IDictionary<Type, string> ShimersTypesNames { get; set; }
         private IShimerConfiguration ShimerConfiguration { get; set; }
+        private IDisposable LocalShimsContext { get; set; }
 
-        public ShimerEngine(string configName)
+        public ShimerEngine()
         {
-            Initialize(configName);
+            Init();
         }
 
         public IUTShimer this[string name]
@@ -75,16 +77,25 @@ namespace MD.API.MVCUTFramework
         {
             var types = assembly.GetTypes();
             IEnumerable<Type> shimers = from type in types
-                                        where typeof(T).IsAssignableFrom(type)
+                                        where typeof(T).IsAssignableFrom(type) & type.IsClass
                                         select type;
             return shimers;
         }
 
         private void Init()
         {
+            LocalShimsContext = ShimsContext.Create();
             ShimersWithNames = new Dictionary<string, IUTShimer>(StringComparer.OrdinalIgnoreCase);
             ShimersTypesNames = new Dictionary<Type, string>();
             ShimerConfiguration = new ShimerConfigurationManager(this);
+        }
+
+        public void Dispose()
+        {
+            if (LocalShimsContext != null)
+            {
+                LocalShimsContext.Dispose();
+            }
         }
     }
 }

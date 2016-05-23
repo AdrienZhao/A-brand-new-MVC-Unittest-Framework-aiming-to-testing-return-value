@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MD.API.MVCUTFramework
 {
-    interface IEntityInitializer
+    public interface IEntityInitializer
     {
         /// <summary>
         /// 初始化基本属性

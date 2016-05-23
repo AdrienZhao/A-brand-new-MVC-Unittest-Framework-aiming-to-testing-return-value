@@ -14,8 +14,14 @@ namespace MD.API.MVCUTFramework
         /// </summary>
         void Initialize();
 
+        IValueProvider valueProvider { get; set; }
+
         IUTFakeContext FakeContext { get; }
 
         IHttpFakeRequest Request { get; }
+
+        IEntityInitializer EntityInitializer { get; }
+
+        IEntityVerifier EntityVerifier { get; }
     }
 }

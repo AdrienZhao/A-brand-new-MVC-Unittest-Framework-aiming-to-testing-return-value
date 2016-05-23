@@ -11,6 +11,6 @@ namespace MD.API.MVCUTFramework
     /// </summary>
     public interface IUTFakeContext : IDisposable
     {
-        void Fake(Action action);
+        void Initialize();
     }
 }

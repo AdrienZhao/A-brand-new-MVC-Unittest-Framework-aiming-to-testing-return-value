@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,13 +24,26 @@ namespace MD.API.MVCUTFramework
                 var value = valueProvider[type];
                 if (value != null)
                 {
-                    VerifyValue(type, property.GetValue(value), value);
+                    VerifyValue(type, property.GetValue(target), value);
                 }
                 else
                 {
-                    if (typesToVerify.Contains(type))
+                    if (type.IsGenericType)
                     {
-                        Verify(property.GetValue(value), typesToVerify);
+                        var args = type.GetGenericArguments();
+                        type = args[0];
+                        var propertyValue = (IList)property.GetValue(target);
+                        if(propertyValue.Count != 2)
+                        {
+                            throw new Exception("Verify failed.");
+                        }
+                        if (typesToVerify.Contains(type))
+                        {
+                            foreach (var subTarget in propertyValue)
+                            {
+                                Verify(subTarget, typesToVerify);
+                            }
+                        }
                     }
                 }
             }
@@ -67,6 +81,11 @@ namespace MD.API.MVCUTFramework
                 equals = (DateTime)source == (DateTime)dest;
             }
             else
+            {
+                throw new Exception(string.Format("Verify failed, type not supported, type {0}, source value {1}, source value {2}", type, source, dest));
+            }
+
+            if (!equals)
             {
                 throw new Exception(string.Format("Verify failed, type {0}, source value {1}, source value {2}", type, source, dest));
             }

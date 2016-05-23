@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmitMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,11 +14,25 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ResultModel About(bool IsInShortFormat)
         {
-            ViewBag.Message = "Your application description page.";
+            object aboutInfo = null;
 
-            return View();
+            var path = Utility.GetVirtualPathByRelativePath(".\\");
+
+            if (IsInShortFormat)
+            {
+                var fullFormatAbout = AboutUsBusinessLogic.GetFullModelInfo();
+                aboutInfo = ObjectMapperManager.DefaultInstance.GetMapper<FullAboutModel, CompleteAboutInfoDto>().Map(fullFormatAbout);
+            }
+            else
+            {
+                var shortFormatAbout = AboutUsBusinessLogic.GetShortModelInfo();
+                aboutInfo = ObjectMapperManager.DefaultInstance.GetMapper<ShortAboutModel, ShortFormatAboutInfoDto>().Map(shortFormatAbout);
+            }
+
+            return aboutInfo != null ? ResultModel.GetSuccessInstance(aboutInfo)
+                : ResultModel.GetFailedInstance();
         }
 
         public ActionResult Contact()
@@ -25,6 +40,29 @@ namespace WebApplication1.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+    }
+
+    public class ResultModel
+    {
+        public object Data { get; set; }
+        public bool success { get; set; }
+
+        public static ResultModel GetSuccessInstance(object data)
+        {
+            return new ResultModel()
+            {
+                success = true,
+                Data = data
+            };
+        }
+
+        public static ResultModel GetFailedInstance()
+        {
+            return new ResultModel()
+            {
+                success = false,
+            };
         }
     }
 }
